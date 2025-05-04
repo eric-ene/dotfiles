@@ -1,0 +1,66 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "auto",
+    "source": "~/Pictures/hachi.jpg",
+    "width": 24,
+    "padding": {
+        "left": 1,
+        "right": 2
+    },
+  },
+  "display": {
+    "separator": " ",
+    "key": {
+      "width": 7,
+      "type": "string"
+    }
+  },
+  "modules": [
+    "title",
+    {
+      "type": "title",
+      "format": "sw"
+    },
+    {
+      "type": "os",
+      "key": "├─os"
+    },
+    {
+      "type": "packages",
+      "key": "├pkg"
+    },
+    {
+      "type": "de",
+      "key": "├─de"
+    },
+    {
+      "type": "uptime",
+      "key": "└─up"
+    },
+    {
+      "type": "title",
+      "format": "hw"
+    },
+    {
+      "type": "chassis",
+      "key": "├sys",
+      "format": "{2} {3}"
+    },
+    {
+      "type": "cpu",
+      "key": "├cpu",
+      "format": "{1}"
+    },
+    {
+      "type": "memory",
+      "key": "├mem",
+      "format": "{1},{2},{3},{4},{5}"
+    },
+    {
+      "type": "disk",
+      "key": "└dsk"
+    },
+    "colors"
+  ]
+}
