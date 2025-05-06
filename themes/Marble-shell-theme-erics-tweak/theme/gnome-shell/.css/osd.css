@@ -1,0 +1,62 @@
+/* OSD */
+
+.switcher-list, /* alt + tab */
+.resize-popup, /* i dunno what is that :( */
+.workspace-switcher, /* ctrl + alt + arr_left/arr_right  */
+.osd-window /* volume/brightness/.. switcher */ {
+	color: TEXT-PRIMARY-COLOR;
+	background-color: BACKGROUND-COLOR;
+	border: 1px solid BORDER-MENU-SHADOW;
+	border-radius: 20px;
+	box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.07);
+}
+
+/* alt + tab */
+.switcher-list { 
+	border-radius: 30px; 
+	padding: 10px;
+}
+
+/* running apps in switcher list */
+.switcher-list .item-box {
+	border-radius: 22px;
+	padding: 8px;
+	color: TEXT-PRIMARY-COLOR;
+	border: 3px solid transparent;
+	background-color: transparent;
+}
+
+.switcher-list .item-box:hover,
+.switcher-list .item-box:focus,
+.switcher-list .item-box:selected,
+.switcher-list .item-box:outlined {
+	background-color: ACCENT-DISABLED_HOVER;
+	/* box-shadow: inset 0 0 0 2px ACCENT-SECONDARY-COLOR; */
+	border: 3px solid ACCENT-SECONDARY-COLOR;
+}
+
+
+/* arrow if app has multiple windows */
+.switcher-arrow {
+  color: TEXT-DISABLED-COLOR;
+  border-color: transparent;
+}
+
+.switcher-arrow:highlighted {
+	color: TEXT-SECONDARY-COLOR;
+}
+
+
+/* ctrl + alt + arr_left/arr_right */
+.ws-switcher-indicator {
+	background-color: TEXT-SECONDARY-COLOR;
+	border-radius: 99px;
+	padding: 2.5px;
+	margin: 7.5px 5px;
+}
+
+.ws-switcher-indicator:active {
+	background-color: TEXT-PRIMARY-COLOR;
+	padding: 5px 20px;
+	margin: 5px;
+}

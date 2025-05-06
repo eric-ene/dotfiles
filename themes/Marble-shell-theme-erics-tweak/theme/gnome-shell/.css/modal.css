@@ -1,0 +1,119 @@
+/* Modal dialog */
+.modal-dialog {
+	border-radius: 20px;
+	padding: 12px;
+	background-color: BACKGROUND-COLOR;
+	border: none;
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW;
+	color: TEXT-PRIMARY-COLOR;
+}
+
+.end-session-dialog {
+	width: 28em;
+}
+
+/* user avatar */
+.user-icon {
+	border-radius: 999px;
+	color: TEXT-PRIMARY-COLOR;
+	background-color: ACCENT-DISABLED-COLOR;
+	box-shadow: inset 0 0 0 1px BORDER-MENU-SHADOW;
+}
+
+.user-icon.user-avatar {
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+/* password entry */
+.prompt-dialog-password-entry {
+	background-color: SECTION-COLOR;
+	padding: 8px !important;
+}
+
+
+/* button in modals */
+.modal-dialog-linked-button, /* 46 */
+.modal-dialog-button-box .modal-dialog-button, /* 47+ */
+.notification-button {
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW;
+	border-radius: 12px;
+	background-color: ACCENT-DISABLED-COLOR;
+	color: TEXT-PRIMARY-COLOR;
+	animation-duration: 100ms;
+}
+
+.modal-dialog-linked-button,
+.modal-dialog-button-box .modal-dialog-button {
+	padding: 9px 0 !important;
+	border-radius: 10px;
+}
+
+.notification-button {
+	padding: 7px 12px;
+	border-radius: 10px;
+}
+
+/* see button spacing in ..46 and 47.. */
+
+.modal-dialog-linked-button:hover,
+.modal-dialog-linked-button:focus,
+.notification-button:hover,
+.notification-button:focus {
+	background-color: ACCENT-DISABLED_HOVER;
+	color: TEXT-PRIMARY-COLOR;
+}
+
+.modal-dialog-linked-button:ltr:last-child,
+.modal-dialog-linked-button:rtl:first-child,
+.modal-dialog-button-box .modal-dialog-button:ltr:last-child,
+.modal-dialog-button-box .modal-dialog-button:rtl:first-child {
+	background-color: BUTTON-COLOR;
+	color: BUTTON-TEXT-COLOR;
+	/* some distributions may have gradient by default (aka Zorin OS) */
+	background-gradient-start: BUTTON-COLOR;
+	background-gradient-end: BUTTON-COLOR
+}
+
+.modal-dialog-linked-button:ltr:last-child:hover,
+.modal-dialog-linked-button:ltr:last-child:focus,
+.modal-dialog-linked-button:rtl:first-child:hover,
+.modal-dialog-linked-button:rtl:first-child:focus,
+.modal-dialog-button-box .modal-dialog-button:ltr:last-child:hover,
+.modal-dialog-button-box .modal-dialog-button:ltr:last-child:focus,
+.modal-dialog-button-box .modal-dialog-button:rtl:first-child:hover,
+.modal-dialog-button-box .modal-dialog-button:rtl:first-child:focus {
+	background-color: BUTTON_HOVER;
+}
+
+
+.modal-dialog-linked-button:focus,
+.modal-dialog-button-box .modal-dialog-button:focus{
+	animation-duration: 100ms;
+	box-shadow: inset 0 0 0 2px TEXT-DISABLED-COLOR !important;
+}
+
+.modal-dialog-linked-button:focus:hover,
+.notification-button:focus:hover,
+.modal-dialog-button-box .modal-dialog-button:focus:hover,
+.modal-dialog-linked-button:focus:active,
+.notification-button:focus:active,
+.modal-dialog-button-box .modal-dialog-button:focus:active {
+	box-shadow: inset 0 0 0 2px TEXT-SECONDARY-COLOR !important;
+}
+
+.modal-dialog .modal-dialog-linked-button:insensitive,
+.notification-banner .notification-button:insensitive,
+.modal-dialog-button-box .modal-dialog-button:insensitive {
+	color: BUTTON-TEXT_SECONDARY;
+	background-color: BUTTON_INSENSITIVE;
+}
+
+
+.modal-dialog-linked-button:ltr:last-child:insensitive,
+.modal-dialog-linked-button:rtl:first-child:insensitive,
+.modal-dialog-button-box .modal-dialog-button:ltr:last-child:insensitive,
+.modal-dialog-button-box .modal-dialog-button:rtl:first-child:insensitive {
+	background-color: BUTTON_INSENSITIVE;
+	color: BUTTON-TEXT_SECONDARY;
+}

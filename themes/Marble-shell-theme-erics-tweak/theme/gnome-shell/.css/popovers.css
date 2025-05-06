@@ -1,0 +1,97 @@
+/* Popovers */
+
+.popup-menu-content { /* popovers, datemenu, quick settings... */
+	color: TEXT-PRIMARY-COLOR;
+	background: BACKGROUND-COLOR; 
+	padding: 8px;
+	margin: 5px 0; /* for panel popovers */
+	border-radius: 20px;
+	border: 1px solid BORDER-MENU-SHADOW;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);	
+}
+
+.popup-menu-item, /* menu items */
+.app-menu { /* right-click (and panel) app menu */
+	border-radius: 12px;
+	transition-duration: 150ms;
+}
+
+.popup-menu-item {
+	margin: 3px 0;
+	padding: 8px 10px;
+}
+
+.popup-menu-item:first-child { margin: 0 0 3px 0; }
+.popup-menu-item:last-child { margin: 3px 0 0 0; }
+.popup-menu-item:first-child:last-child { margin: 0; }
+
+.popup-menu-item:focus,
+.popup-menu-item:hover,
+.popup-menu-item:checked {
+	background-color: ACCENT-DISABLED-COLOR !important;
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW !important;
+	color: TEXT-PRIMARY-COLOR;
+}
+
+.popup-menu-item:checked {
+	border-radius: 12px 12px 0 0;
+}
+
+.popup-menu-item:active {
+	background-color: ACCENT-DISABLED_HOVER;
+	color: TEXT-PRIMARY-COLOR;
+}
+
+/* 44 separator margin fix */
+.popup-separator-menu-item {
+	padding: 5px !important;
+}
+
+/* separator in popup menu */
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+	height: 1px;
+	background-color: SEPARATOR-COLOR;
+}
+
+
+/* popover submenus */
+.popup-sub-menu {
+	background-color: ACCENT-DISABLED-COLOR;
+	color: TEXT-PRIMARY-COLOR;
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW;
+	border-radius: 0 0 12px 12px;
+	border: none;
+}
+
+/* submenu items */
+.popup-sub-menu .popup-menu-item {
+	margin: 0;
+	color: TEXT-PRIMARY-COLOR;
+	background-color: transparent;
+	border-radius: 0;
+}
+
+/* make rounded borders for last element */
+.popup-sub-menu .popup-menu-item:last-child {
+	border-radius: 0 0 12px 12px;
+}
+
+.popup-sub-menu .popup-menu-item:hover,
+.popup-sub-menu .popup-menu-item:focus {
+	background-color: ACCENT-DISABLED_HOVER !important;
+}
+
+.popup-menu-item:insensitive {
+	color: TEXT-DISABLED-COLOR;
+	margin: 0;
+}
+
+/* all other graphical elements (sliders), OpenWeather Extension */
+.popup-inactive-menu-item {
+	color: TEXT-PRIMARY-COLOR;
+	background-color: transparent;
+}
+
+.popup-inactive-menu-item:insensitive {
+	color: TEXT-SECONDARY-COLOR !important;
+}

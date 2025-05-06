@@ -1,0 +1,43 @@
+/* Entries */
+
+StEntry,
+.search-entry {
+	border-radius: 13px;
+	padding: 8px;
+	transition-duration: 100ms;
+	border: 1px solid BORDER-SHADOW;
+	color: TEXT-SECONDARY-COLOR;
+	selection-background-color: ACCENT-COLOR;
+	selected-color: TEXT-PRIMARY-COLOR;
+}
+
+StEntry {
+	background-color: ACCENT-DISABLED-COLOR;
+}
+
+.search-entry {
+	background-color: SECTION-COLOR;
+
+}
+
+/* icon in entry */
+StEntry StLabel {
+	color: TEXT-PRIMARY-COLOR;
+}
+
+/* change icon color if entry not selected */
+StEntry StLabel:insensitive {
+	color: TEXT-SECONDARY-COLOR;
+}
+
+StEntry:hover,
+StEntry:focus,
+StEntry:active {
+	border: 1px solid TEXT-DISABLED-COLOR;
+	background-color: ACCENT-DISABLED-COLOR;
+	box-shadow: none !important;
+}
+
+StEntry:focus {
+	color: TEXT-PRIMARY-COLOR;
+}

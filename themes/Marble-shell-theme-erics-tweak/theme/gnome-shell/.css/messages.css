@@ -1,0 +1,197 @@
+/* Messages */
+
+/* datemenu message-list */
+.message-list {
+	border-color: transparent; /* remove border between messages and calendar section */ 
+	padding: 0 !important;
+}
+
+/* dnd and clear button */
+.message-list-controls:ltr { padding: auto 5px 0 6px; }
+.message-list-controls:rtl { padding: auto 6px 0 5px; }
+
+/* "No Notifications" text */
+.message-list-placeholder {
+	color: TEXT-DISABLED-COLOR;
+	font-weight: 700;
+}
+
+/* remove right margin in message list section (datemenu) (a.k.a scrollbar) */
+.message-list:ltr,
+.message-list-sections:ltr, /* up to 47 */
+.message-view:ltr { /* 48+ */
+	margin-right: 1px;
+	padding-right: 5px;
+}
+.message-list:rtl, .message-list-sections:rtl, .message-view:rtl { 
+	margin-left: 1px;
+	padding-left: 5px;
+}
+
+
+/* popup messages */
+.message {
+	color: TEXT-PRIMARY-COLOR;
+	border-radius: 18px;
+}
+
+/* Message OSD */
+.notification-banner {
+	background-color: BACKGROUND-COLOR;
+	color: TEXT-PRIMARY-COLOR;
+	border: 1px solid BORDER-MENU-SHADOW;
+	box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.07);
+}
+
+/* messages in menus */
+.message-list .message, 
+.popup-menu-content .message, 
+.message-view .message { /* 48+ */
+	background-color: SECTION-COLOR;
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW;
+	border: 0;
+	margin: 0; /* fix margins for GNOME older than 46 */
+	margin-bottom: 9px !important;
+	border-radius: 13px;
+	transition-duration: 100ms;
+}
+.message-list .message:hover {
+	background-color: ACCENT-DISABLED-COLOR;
+}
+.message-list .message:focus {
+	background-color: ACCENT-OPACITY-COLOR;
+	box-shadow: inset 0 0 0 2px ACCENT-SECONDARY-COLOR !important;
+}
+
+.message-view .message {
+	background-color: SECTION-OPAQUE-COLOR;
+}
+
+.message:second-in-stack {
+	background-color: SECTION-OPAQUE_SECOND;
+}
+
+.message:lower-in-stack {
+	background-color: SECTION-OPAQUE_THIRD;
+}
+
+.message-view .message:hover {
+	background-color: SECTION-OPAQUE_HOVER;
+}
+
+/* text / header in message */
+.message .message-body,
+.message-title {
+	color: TEXT-PRIMARY-COLOR;
+}
+
+/* message time stamp */
+.message .message-secondary-bin > .event-time {
+	color: TEXT-SECONDARY-COLOR;
+}
+
+/* message title on 46+ */
+.message .message-header .message-source-icon,
+.message .message-header .message-header-content .message-source-title,
+.message .message-header .message-header-content .event-time {
+	color: TEXT-SECONDARY-COLOR;
+	padding-bottom: 0;
+}
+
+/* that's much better than adding "margin: $base_padding * 0.5;" to .message-close-button */
+.message-close-button { margin: 0; }
+.message-header:ltr > :last-child { margin-right: 2px; }
+.message-header:rtl > :first-child { margin-left: 2px; }
+
+/* close button, expand button (46+) */
+.message-close-button,
+.message-expand-button,
+.message-collapse-button { /* collapse group of messages button */
+	color: TEXT-PRIMARY-COLOR;
+	background-color: ACCENT-DISABLED-COLOR;
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW;
+	transition-duration: 100ms;
+	border-radius: 99px;
+}
+
+.message-collapse-button {
+	border: 0;
+	padding: 6px !important;
+	margin: 2px;
+}
+
+.message-close-button,.message-expand-button { padding: 5px; }
+
+.message-close-button:hover,
+.message-expand-button:hover,
+.message-collapse-button:hover {
+	background-color: ACCENT-DISABLED_HOVER;
+}
+
+.message-close-button:active,
+.message-expand-button:active,
+.message-collapse-button:active {
+	color: TEXT-SECONDARY-COLOR;
+}
+
+/* message buttons */
+.message-list .message-action-bin { padding: 2px; }
+.message-action-bin StBoxLayout { spacing: 0; }
+
+.message-list .message-action-bin * {
+	border-radius: 9px;
+	font-size: 14px;
+}
+
+
+/* Media Controls */
+.message-media-control {
+	border-radius: 9px;
+	/* currently disabled because of 46 */
+	/* padding: 0 14px; */
+	/* margin: 20px 2px; */
+	color: TEXT-PRIMARY-COLOR;
+	transition-duration: 100ms;
+}
+
+.message-media-control:hover {
+	background-color: ACCENT-DISABLED-COLOR;
+	box-shadow: inset 0 0 0 1px BORDER-SHADOW;
+	color: TEXT-PRIMARY-COLOR;
+}
+
+.message-media-control:insensitive { color: TEXT-DISABLED-COLOR; }
+
+/* fix margin for last button */
+/* currently disabled because of 46 */
+/* .message-media-control:last-child:ltr { margin-right: 20px; }
+.message-media-control:last-child:rtl {	margin-left: 12px; } */
+
+
+/* album art */
+.media-message-cover-icon {
+	icon-size: 3.2em !important;
+	border-radius: 12px;
+}
+
+.media-message .message-icon { /* 46+ */
+	border-radius: 12px !important;
+}
+
+/* when there is no artwork */
+.media-message-cover-icon.fallback,
+.media-message .message-icon.message-themed-icon { /* 46+ */
+	color: TEXT-PRIMARY-COLOR;
+	background-color: ACCENT-DISABLED_HOVER;
+	border: 1px solid BORDER-SHADOW;
+	border-radius: 15px;
+	icon-size: 1.6em !important;
+}
+
+.media-message-cover-icon.fallback {
+	padding: 0.79em;
+}
+
+
+/* URLs in messages */
+.url-highlighter { link-color: ACCENT-SECONDARY-COLOR; }

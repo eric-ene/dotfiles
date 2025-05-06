@@ -1,0 +1,20 @@
+.toggle-switch .handle {
+	/* toggle-switch height - handle margin * 2 */
+	width: 12px;
+	height: 14px;
+	margin: 3px;
+	border-radius: 99px;
+	background-color: TEXT-SECONDARY-COLOR;
+}
+
+.toggle-switch:checked .handle {
+	background-color: BUTTON-TEXT-COLOR;
+}
+
+.dnd-button .toggle-switch .handle {
+	/* toggle-switch height - handle margin * 2 */
+	width: 16px;
+	height: 16px;
+	border-radius: 6px;
+	margin: 3px;
+}
