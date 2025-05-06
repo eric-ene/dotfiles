@@ -43,5 +43,8 @@
 # resize-overlay-duration = 4s 200ms
 
 font-size = 10
-theme = eric-sym
+theme = Kanagawa Dragon
 window-subtitle = working-directory
+
+window-padding-x = 4
+window-padding-y = 4
