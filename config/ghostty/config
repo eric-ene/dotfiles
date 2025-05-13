@@ -50,4 +50,4 @@ window-subtitle = working-directory
 window-padding-x = 4
 window-padding-y = 4
 
-command = tmux
+command = tmux new-session -A -s main
