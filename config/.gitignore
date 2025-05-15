@@ -1,7 +1,8 @@
 *
-!config/ghostty
-!config/helix
-!config/neofetch
-!config/fastfetch
-!config/nvim
-!config/spotify-player
+!ghostty
+!helix
+!neofetch
+!fastfetch
+!nvim
+!nvim/**
+!spotify-player

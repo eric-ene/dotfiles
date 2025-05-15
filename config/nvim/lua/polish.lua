@@ -1,5 +1,7 @@
-if true then return end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+local resession = require "resession"
 
--- This will run last in the setup process.
--- This is just pure lua so anything that doesn't
--- fit in the normal config locations above can go here
+vim.api.nvim_create_user_command(
+  "SessionRestore",
+  function() resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true }) end,
+  {}
+)
