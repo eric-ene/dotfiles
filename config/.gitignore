@@ -7,3 +7,4 @@
 !nvim/**
 !spotify-player
 nvim/lazy-lock.json
+!fish
