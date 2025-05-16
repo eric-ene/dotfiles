@@ -18,17 +18,16 @@ function providers.padclip(p_str, p_maxlen)
   local strlen = string.len(p_str)
   local rem = p_maxlen - strlen
 
-  if rem >= 1 then return string.rep(" ", rem) .. p_str .. " " end
-  return "..." .. string.sub(p_str, strlen - p_maxlen + 4, strlen) .. " "
+  if rem >= 1 then return string.rep(" ", rem) .. p_str end
+  return "..." .. string.sub(p_str, strlen - p_maxlen + 4, strlen)
 end
 
 -- returns file info to be put in the tabline. needs to be aligned to tmux title
 function providers.fileinfo()
-  local retval = vim.fn.expand "%"
+  local retval = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 
-  retval = string.gsub(retval, "(.*)%.%a+", "%1")
-
-  return providers.padclip(retval, maxlen)
+  retval = providers.padclip(retval, maxlen - #" - nvim " + 1)
+  return retval .. " - nvim "
 end
 
 function providers.filetype(padding)
@@ -135,7 +134,7 @@ end
 function M.git(p_opts)
   p_opts = p_opts or {}
 
-  local braces = { "[", "]" }
+  local braces = { "[ ", " ]" }
 
   local pad = p_opts.pad or { left = 1, right = 1 }
 
@@ -179,7 +178,6 @@ local Bufnr = {
     end
   end,
   provider = function(self) return (not self._show_picker and tostring(self.bufnr) or tostring(self.label)) .. " " end,
-  hl = function(self) return self._show_picker and { fg = "git_removed" } or { fg = "fg" } end,
 }
 
 local FileName = {
@@ -194,7 +192,6 @@ local FileFlags = {
   {
     condition = function(self) return vim.api.nvim_get_option_value("modified", { buf = self.bufnr }) end,
     provider = "*",
-    hl = { fg = "git_added" },
   },
   {
     condition = function(self)
@@ -202,22 +199,26 @@ local FileFlags = {
         or vim.api.nvim_get_option_value("readonly", { buf = self.bufnr })
     end,
     provider = "-",
-    hl = { fg = "git_removed" },
   },
 }
 
 local FileTab = {
   init = function(self) self.filename = vim.api.nvim_buf_get_name(self.bufnr) end,
-  hl = {
-    fg = "fg",
-    bg = "tabline_bg",
-  },
+  hl = function(self)
+    return self.is_active and {
+      fg = "bg",
+      bg = "git_added",
+    } or {
+      fg = "fg",
+      bg = "tabline_bg",
+    }
+  end,
   {
-    { provider = function(self) return self.is_active and "( " or "  " end },
+    { provider = function(self) return self.is_active and "[ " or "  " end },
     Bufnr,
     FileName,
     FileFlags,
-    { provider = function(self) return self.is_active and " )" or "  " end },
+    { provider = function(self) return self.is_active and " ]" or "  " end },
   },
 }
 

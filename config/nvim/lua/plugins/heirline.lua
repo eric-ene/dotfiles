@@ -23,7 +23,11 @@ vim.api.nvim_create_autocmd({ "VimEnter", "UiEnter", "BufAdd", "BufDelete" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  callback = function() vim.wo.winbar = require("heirline").eval_winbar() end,
+  callback = function()
+    local win = vim.api.nvim_get_current_win()
+    if vim.api.nvim_win_get_config(win).zindex then return end
+    vim.wo.winbar = require("heirline").eval_winbar()
+  end,
 })
 
 return {
