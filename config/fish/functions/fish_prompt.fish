@@ -12,11 +12,12 @@ function git_info --description 'get git inof'
     set -l branch $(git rev-parse --abbrev-ref HEAD)
 
     set -l dirty $(git diff-index HEAD | wc -l)
+    set -l color
 
     if test $dirty -eq 0
-        set dirty ""
+        set color blue
     else
-        set dirty " $dirty""c"
+        set color red
     end
 
     set -l commits $(git rev-list --left-right --count origin/main...main | sed -E 's/([0-9]+).*([0-9]+)/\2\n\1/g')
@@ -31,12 +32,12 @@ function git_info --description 'get git inof'
         set commit_str "$commit_str $(color_str $commits[2]- red)"
     end
 
-    printf " [$(color_str $branch green)$(color_str $dirty red)$commit_str]"
+    printf " [$(color_str $branch $color)$commit_str]"
 end
 
 function fish_prompt --description 'Write out the prompt'
     set -l dir $(dirs)
-    printf "$(color_str $dir red)$(git_info)\n"
+    printf "$(color_str $dir green)$(git_info)\n"
     printf "\$ "
 end
 
