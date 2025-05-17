@@ -16,10 +16,22 @@ function git_info --description 'get git inof'
     if test $dirty -eq 0
         set dirty ""
     else
-        set dirty " $dirty"
+        set dirty " $dirty""c"
     end
 
-    printf " [$(color_str $branch green)$(color_str $dirty red)]"
+    set -l commits $(git rev-list --left-right --count origin/main...main | sed -E 's/([0-9]+).*([0-9]+)/\2\n\1/g')
+
+    set -l commit_str ""
+
+    if test $commits[1] -ne 0
+        set commit_str " $(color_str $commits[1]+ blue)"
+    end
+
+    if test $commits[2] -ne 0
+        set commit_str "$commit_str $(color_str $commits[2]- red)"
+    end
+
+    printf " [$(color_str $branch green)$(color_str $dirty red)$commit_str]"
 end
 
 function fish_prompt --description 'Write out the prompt'
