@@ -1,6 +1,6 @@
 local tmux_suffix = " - tmux"
 local user = os.getenv "USER"
-local host = os.getenv "HOSTNAME"
+local host = "kaworu"
 local user_at_host = user .. "@" .. host .. tmux_suffix
 
 local maxlen = string.len(user_at_host)
