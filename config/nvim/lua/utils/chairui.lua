@@ -7,9 +7,6 @@ local maxlen = string.len(user_at_host)
 
 local providers = {}
 local M = {}
-local status = require "astroui.status"
-local s_component = status.component
-local s_utils = status.utils
 local git = require "utils.git"
 
 function providers.extend_tbl(default, new) return vim.tbl_deep_extend("force", default, new) end
@@ -142,22 +139,16 @@ function M.git(p_opts)
   local i_pad = 2
   local i_fg = 3
 
-  return s_component.builder {
-    providers.extend_tbl({ provider = string.rep(" ", pad.left) .. braces[1] }, p_opts),
-    ---@diagnostic disable: assign-type-mismatch
-    s_utils.setup_providers(vim.deepcopy(p_opts), {
-      { providers.git, 1, "fg" },
-      { providers.diff_staged, 1, "git_added" },
-      { providers.diff_total, 0, "git_changed" },
-    }, function(_opts, p)
-      return providers.extend_tbl(
-        { provider = function() return p[i_name](p[i_pad]) end, hl = { bg = "tabline_bg", fg = p[i_fg] } },
-        p_opts
-      )
-    end),
-    ---@diagnostic enable
-    providers.extend_tbl({ provider = braces[2] .. string.rep(" ", pad.right) }, p_opts),
-  }
+  
+end
+
+function M.gd_debug(p_opts)
+  local msg = "godot info: "
+
+  if is_server_running then msg = msg .. " server " end
+  if is_godot_project then msg = msg .. "godot " end
+
+  return s_component.builder { provider = msg }
 end
 
 local Bufnr = {

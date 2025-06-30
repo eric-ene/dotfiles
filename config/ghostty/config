@@ -50,6 +50,6 @@ window-subtitle = working-directory
 window-padding-x = 4
 window-padding-y = 4
 
-config-file = ?local.conf
+command = tmux new-session -A -s main
 
-command = /bin/zsh -c 'tmux new-session -A -s main'
+config-file = ?local.conf
