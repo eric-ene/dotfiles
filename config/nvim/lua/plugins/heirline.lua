@@ -1,42 +1,42 @@
 local pad = function(num)
-  return {  
-    provider = function()
-      return string.rep(" ", num)
-    end,
-  }
+	return {
+		provider = function()
+			return string.rep(" ", num)
+		end,
+	}
 end
 
 return {
 	"rebelot/heirline.nvim",
 	lazy = false,
 	dependencies = {
-    "kanagawa"
-  },
-   
+		"kanagawa",
+	},
 	opts = function(_, opts)
-	  vim.cmd("colorscheme kanagawa")
-    vim.cmd("set noshowmode")
-    local colors = require("kanagawa.colors").setup().palette
- 	  require("heirline").load_colors(colors)
+		vim.cmd("colorscheme kanagawa")
+		vim.cmd("set noshowmode")
+		local colors = require("kanagawa.colors").setup().palette
+		require("heirline").load_colors(colors)
 
-    local utils = require("heirline.utils")
-    local conditions = require("heirline.conditions")
-				
-				local modes = {
-          n = "   nor ",
-					i = " 󰏫  ins ",
-					v = " 󰇀  vis ",
-					c = "   cmd ",
-				}
-				local colors = {
-					n = "oldWhite",
-					i = "dragonGreen",
-					v = "dragonViolet",
-					c = "dragonRed",
-				}
+		local utils = require("heirline.utils")
+		local conditions = require("heirline.conditions")
+		local fmt = require("conform")
 
-    local mode = {
-	
+		local modes = {
+			n = "  nor  ",
+			i = "  ins  ",
+			v = "  vis  ",
+			c = "  cmd  ",
+		}
+		local colors = {
+			n = "oldWhite",
+			i = "dragonGreen",
+			v = "dragonViolet",
+			c = "dragonRed",
+		}
+
+		local mode = {
+
 			init = function(self)
 				self.mode = vim.fn.mode(1)
 			end,
@@ -55,84 +55,110 @@ return {
 				callback = vim.schedule_wrap(function()
 					vim.cmd("redrawstatus")
 				end),
-	
-			}
+			},
 		}
 
-    local filenameinfo = {
-      provider = function(self)
-        local filepath = vim.fn.fnamemodify(self.filename, ":.")
-        if filepath == "" then return "[unnamed file]" end
-        
-        if not conditions.width_percent_below(#filepath, 0.25) then
-          filepath = vim.fn.pathshorten(filepath)
-        end
+		local filenameinfo = {
+			provider = function(self)
+				local filepath = vim.fn.fnamemodify(self.filename, ":.")
+				if filepath == "" then
+					return "[unnamed file]"
+				end
 
-        return filepath
-      end,
-    }
+				if not conditions.width_percent_below(#filepath, 0.25) then
+					filepath = vim.fn.pathshorten(filepath)
+				end
 
-    local fileflags = {
-      {condition = function()
-        return vim.bo.modified
-      end,
-      provider = "[+]",
-      hl = { fg = "dragonGreen" },
-    },
-    {
-      condition = function()
-        return not vim.bo.modifiable or vim.bo.readonly
-      end,
-      provider = "[x]",
-      hl = { fg = "dragonRed" }
-    }
-    }
+				return filepath
+			end,
+		}
 
-    local filetype = {
-      provider = function()
-        return " <" .. vim.bo.filetype .. "> "
-      end,
-      hl = function() return {
-        fg = "dragonBlack0",
-        bg = colors[vim.fn.mode(1):sub(1, 1)]
-      } end,
-    }
+		local fileflags = {
+			{
+				condition = function()
+					return vim.bo.modified
+				end,
+				provider = "[+]",
+				hl = { fg = "dragonGreen" },
+			},
+			{
+				condition = function()
+					return not vim.bo.modifiable or vim.bo.readonly
+				end,
+				provider = "[x]",
+				hl = { fg = "dragonRed" },
+			},
+		}
 
-    local fileblock = {
-      init = function(self)
-        self.filename = vim.api.nvim_buf_get_name(0)
-      end,
-      {
-        filenameinfo,
-        pad(1),
-        fileflags,
-      },
-    }
+		local filetype = {
+			provider = function()
+				return " <" .. vim.bo.filetype .. "> "
+			end,
+			hl = function()
+				return {
+					fg = "dragonBlack0",
+					bg = colors[vim.fn.mode(1):sub(1, 1)],
+				}
+			end,
+		}
 
-    local fill = {  
-      provider = "%=",
-    }
+		local fileblock = {
+			init = function(self)
+				self.filename = vim.api.nvim_buf_get_name(0)
+			end,
+			{
+				filenameinfo,
+				pad(1),
+				fileflags,
+			},
+		}
 
-    local rulers = {
+		local fill = {
+			provider = "%=",
+		}
 
-    }
-    
-    vim.opt.showcmdloc = 'statusline'
-local ShowCmd = {
-    condition = function()
-        return vim.o.cmdheight == 0
-    end,
-    provider = "%S",
-} 
+		local rulers = {
+			provider = "(%l:%c)/%L",
+		}
+
+		local lspinfo = {
+			condition = conditions.lsp_attached,
+			update = { "LspAttach", "LspDetach" },
+			provider = function()
+				local names = {}
+				for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+					table.insert(names, server.name)
+				end
+
+				for _, formatter in pairs(fmt.list_formatters_for_buffer(0)) do
+					table.insert(names, formatter)
+				end
+
+				return "[" .. table.concat(names, " ") .. "]"
+			end,
+		}
+
+		vim.opt.showcmdloc = "statusline"
+		local ShowCmd = {
+			condition = function()
+				return vim.o.cmdheight == 0
+			end,
+			provider = "%S",
+		}
 
 		local statusline = {
 			mode,
-      pad(1),
-      ShowCmd,
-      fill,
-      fileblock,
+			pad(1),
+			ShowCmd,
+			pad(1),
+			fileblock,
+			fill,
+			lspinfo,
+			pad(1),
+			rulers,
+			pad(1),
 		}
-		
+
 		opts.statusline = statusline
-	end
+	end,
 }

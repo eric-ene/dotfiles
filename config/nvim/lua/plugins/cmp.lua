@@ -10,8 +10,8 @@ return {
 			menu = {
 				draw = {
 					columns = {
-						{ "kind_icon", "label", gap = 1 },
-						{ "label_description", "source_name", gap = 1 },
+						{ "kind_icon", "label", gap = 2 },
+						{ "label_description" },
 					},
 				},
 			},

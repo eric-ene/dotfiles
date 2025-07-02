@@ -1,3 +1,4 @@
+vim.g.mapleader = "<Space>"
 require("config.lazy")
 
 local vim_opts = vim.opt
@@ -10,3 +11,5 @@ vim_opts.relativenumber = true
 vim_opts.cmdheight = 0
 
 vim.cmd("colorscheme kanagawa-dragon")
+
+require("config.bindings")
