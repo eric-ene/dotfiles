@@ -1,9 +1,54 @@
+local modes = {
+	n = "NORMAL",
+	i = "INSERT",
+	v = "VISUAL",
+	c = "COMMAND",
+}
+local colors = {
+	n = "oldWhite",
+	i = "dragonGreen",
+	v = "dragonViolet",
+	c = "dragonRed",
+}
+
 local pad = function(num)
 	return {
 		provider = function()
 			return string.rep(" ", num)
 		end,
 	}
+end
+
+--- @alias loc "status" | "tabline"
+--- @param loc loc
+local modemeta = function(loc, opts)
+	local redrawfunc = "redraw" .. loc
+
+	return {
+		init = function(self)
+			self.mode = vim.fn.mode(1)
+		end,
+		update = {
+			"ModeChanged",
+			pattern = "*:*",
+			callback = vim.schedule_wrap(function()
+				vim.cmd(redrawfunc)
+			end),
+		},
+		opts,
+	}
+end
+
+--- @param loc loc
+--- @param textprovider function
+local modebackgroundmeta = function(textprovider, loc, opts)
+	return modemeta(loc, {
+		opts,
+		provider = textprovider,
+		hl = function(self)
+			return { bg = colors[self.mode:sub(1, 1)], fg = "dragonBlack0" }
+		end,
+	})
 end
 
 return {
@@ -15,54 +60,54 @@ return {
 	opts = function(_, opts)
 		vim.cmd("colorscheme kanagawa")
 		vim.cmd("set noshowmode")
-		local colors = require("kanagawa.colors").setup().palette
-		require("heirline").load_colors(colors)
+		local themecolors = require("kanagawa.colors").setup().palette
+		require("heirline").load_colors(themecolors)
 
 		local utils = require("heirline.utils")
 		local conditions = require("heirline.conditions")
 		local fmt = require("conform")
 
-		local modes = {
-			n = "  nor  ",
-			i = "  ins  ",
-			v = "  vis  ",
-			c = "  cmd  ",
-		}
-		local colors = {
-			n = "oldWhite",
-			i = "dragonGreen",
-			v = "dragonViolet",
-			c = "dragonRed",
-		}
+		-- local mode = {
+		-- 	init = function(self)
+		-- 		self.mode = vim.fn.mode(1)
+		-- 	end,
+		--
+		-- 	provider = function(self)
+		-- 		return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) .. " "
+		-- 	end,
+		--
+		-- 	hl = function(self)
+		-- 		return { bg = colors[self.mode:sub(1, 1)], fg = "dragonBlack0" }
+		-- 	end,
+		--
+		-- 	update = {
+		-- 		"ModeChanged",
+		-- 		pattern = "*:*",
+		-- 		callback = vim.schedule_wrap(function()
+		-- 			vim.cmd("redrawstatus")
+		-- 		end),
+		-- 	},
+		-- }
 
-		local mode = {
+		-- local mode = modemeta("status", {
+		-- 	provider = function(self)
+		-- 		return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) .. " "
+		-- 	end,
+		--
+		-- 	hl = function(self)
+		-- 		return { bg = colors[self.mode:sub(1, 1)], fg = "dragonBlack0" }
+		-- 	end,
+		-- })
 
-			init = function(self)
-				self.mode = vim.fn.mode(1)
-			end,
-
-			provider = function(self)
-				return modes[self.mode:sub(1, 1)]
-			end,
-
-			hl = function(self)
-				return { bg = colors[self.mode:sub(1, 1)], fg = "dragonBlack0" }
-			end,
-
-			update = {
-				"ModeChanged",
-				pattern = "*:*",
-				callback = vim.schedule_wrap(function()
-					vim.cmd("redrawstatus")
-				end),
-			},
-		}
+		local mode = modebackgroundmeta(function(self)
+			return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) .. " "
+		end, "status")
 
 		local filenameinfo = {
 			provider = function(self)
 				local filepath = vim.fn.fnamemodify(self.filename, ":.")
 				if filepath == "" then
-					return "[unnamed file]"
+					return "[ unnamed file ]"
 				end
 
 				if not conditions.width_percent_below(#filepath, 0.25) then
@@ -134,7 +179,7 @@ return {
 					table.insert(names, formatter)
 				end
 
-				return "[" .. table.concat(names, " ") .. "]"
+				return "[ " .. table.concat(names, " ") .. " ]"
 			end,
 		}
 
@@ -145,6 +190,90 @@ return {
 			end,
 			provider = "%S",
 		}
+
+		local tabname = {
+			provider = function(self)
+				local name = vim.fn.fnamemodify(self.name, ":t")
+
+				if self.is_active then
+					name = "[ " .. name .. " ]"
+				else
+					name = "  " .. name .. "  "
+				end
+
+				return name
+			end,
+		}
+
+		local tabblock = {
+			init = function(self)
+				self.name = vim.api.nvim_buf_get_name(self.bufnr)
+			end,
+			hl = function(self)
+				-- TODO: finish this
+			end,
+			tabname,
+			pad(1),
+		}
+
+		local tabs = utils.make_buflist(tabblock)
+
+		local cwd = {
+			provider = function()
+				local cwd = vim.fn.getcwd()
+
+				local head = vim.fn.fnamemodify(cwd, ":h:t") .. "/"
+				local tail = vim.fn.fnamemodify(cwd, ":t")
+				local last2 = head .. tail
+
+				local chosen = last2
+
+				-- 18 is a stupid hardcoded value because my user@host is same len on pc and laptop
+				-- 10 is based on vibes
+				if #chosen > 18 then
+					if #tail < 10 then
+						chosen = "..." .. string.sub(chosen, 3)
+					elseif #tail < 18 then
+						chosen = tail
+					end
+				end
+
+				if #chosen > 18 then
+					chosen = "..." .. string.sub(chosen, 3)
+				else
+					chosen = string.rep(" ", 18 - #chosen) .. chosen
+				end
+
+				return chosen
+			end,
+			hl = { fg = "dragonGreen" },
+		}
+
+		-- local bigmode = {
+		-- 	provider = function(self)
+		-- 		local modetext = modes[self.mode:sub(1, 1)]
+		--
+		-- 		local final = modetext .. " - nvim"
+		-- 		return (" "):rep(#"eric@shinji - tmux" - #final) .. final
+		-- 	end,
+		-- 	hl = { fg = "oldWhite" },
+		-- 	update = {
+		-- 		"ModeChanged",
+		-- 		pattern = "*:*",
+		-- 		callback = vim.schedule_wrap(function()
+		-- 			vim.cmd("redrawtabline")
+		-- 		end),
+		-- 	},
+		-- }
+
+		local smallmode_tabline = modemeta("tabline", {
+			provider = " ",
+			hl = function(self)
+				return {
+					bg = colors[self.mode:sub(1, 1)],
+				}
+			end,
+		})
 
 		local statusline = {
 			mode,
@@ -159,6 +288,15 @@ return {
 			pad(1),
 		}
 
+		local tabline = {
+			-- bigmode,
+			smallmode_tabline,
+			pad(3),
+			tabs,
+		}
+
+		vim.o.showtabline = 2
+		opts.tabline = tabline
 		opts.statusline = statusline
 	end,
 }
