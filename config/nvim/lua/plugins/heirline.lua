@@ -101,7 +101,7 @@ return {
 
 		local mode = modebackgroundmeta(function(self)
 			return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) .. " "
-		end, "status")
+		end, "tabline")
 
 		local filenameinfo = {
 			provider = function(self)
@@ -222,29 +222,29 @@ return {
 			provider = function()
 				local cwd = vim.fn.getcwd()
 
-				local head = vim.fn.fnamemodify(cwd, ":h:t") .. "/"
-				local tail = vim.fn.fnamemodify(cwd, ":t")
-				local last2 = head .. tail
+				-- local head = vim.fn.fnamemodify(cwd, ":h:t") .. "/"
+				-- local tail = vim.fn.fnamemodify(cwd, ":t")
+				-- local last2 = head .. tail
+				--
+				-- local chosen = last2
+				--
+				-- -- 18 is a stupid hardcoded value because my user@host is same len on pc and laptop
+				-- -- 10 is based on vibes
+				-- if #chosen > 18 then
+				-- 	if #tail < 10 then
+				-- 		chosen = "..." .. string.sub(chosen, 3)
+				-- 	elseif #tail < 18 then
+				-- 		chosen = tail
+				-- 	end
+				-- end
+				--
+				-- if #chosen > 18 then
+				-- 	chosen = "..." .. string.sub(chosen, 3)
+				-- else
+				-- 	chosen = string.rep(" ", 18 - #chosen) .. chosen
+				-- end
 
-				local chosen = last2
-
-				-- 18 is a stupid hardcoded value because my user@host is same len on pc and laptop
-				-- 10 is based on vibes
-				if #chosen > 18 then
-					if #tail < 10 then
-						chosen = "..." .. string.sub(chosen, 3)
-					elseif #tail < 18 then
-						chosen = tail
-					end
-				end
-
-				if #chosen > 18 then
-					chosen = "..." .. string.sub(chosen, 3)
-				else
-					chosen = string.rep(" ", 18 - #chosen) .. chosen
-				end
-
-				return chosen
+				return "[ " .. vim.fn.fnamemodify(cwd, ":~") .. " ]"
 			end,
 			hl = { fg = "dragonGreen" },
 		}
@@ -275,24 +275,46 @@ return {
 			end,
 		})
 
+		local smallmode_statusline = modemeta("status", {
+			provider = " ",
+			hl = function(self)
+				return {
+					bg = colors[self.mode:sub(1, 1)],
+				}
+			end,
+		})
+
 		local statusline = {
-			mode,
+			smallmode_statusline,
 			pad(1),
-			ShowCmd,
+			cwd,
 			pad(1),
 			fileblock,
+
 			fill,
+
 			lspinfo,
 			pad(1),
 			rulers,
 			pad(1),
+			smallmode_statusline,
 		}
 
+    local mini_statusline = {
+      condition = function()
+        return conditions.
+      end,
+
+    }
+
 		local tabline = {
-			-- bigmode,
-			smallmode_tabline,
+			mode,
 			pad(3),
 			tabs,
+
+			fill,
+
+			smallmode_tabline,
 		}
 
 		vim.o.showtabline = 2
