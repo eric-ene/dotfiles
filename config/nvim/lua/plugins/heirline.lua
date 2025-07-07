@@ -3,12 +3,14 @@ local modes = {
 	i = "INSERT",
 	v = "VISUAL",
 	c = "COMMAND",
+	r = "REPLACE",
 }
 local colors = {
 	n = "oldWhite",
 	i = "dragonGreen",
 	v = "dragonViolet",
 	c = "dragonRed",
+	r = "dragonRed",
 }
 
 local pad = function(num)
@@ -47,6 +49,18 @@ local modebackgroundmeta = function(textprovider, loc, opts)
 		provider = textprovider,
 		hl = function(self)
 			return { bg = colors[self.mode:sub(1, 1)], fg = "dragonBlack0" }
+		end,
+	})
+end
+
+--- @param loc loc
+--- @param textprovider function
+local modeforegroundmeta = function(textprovider, loc, opts)
+	return modemeta(loc, {
+		opts,
+		provider = textprovider,
+		hl = function(self)
+			return { fg = colors[self.mode:sub(1, 1)] }
 		end,
 	})
 end
@@ -102,6 +116,10 @@ return {
 		local mode = modebackgroundmeta(function(self)
 			return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) .. " "
 		end, "tabline")
+
+		local mode2 = modeforegroundmeta(function(self)
+			return modes[self.mode:sub(1, 1)]:sub(1, 3)
+		end, "status")
 
 		local filenameinfo = {
 			provider = function(self)
@@ -194,6 +212,9 @@ return {
 		local tabname = {
 			provider = function(self)
 				local name = vim.fn.fnamemodify(self.name, ":t")
+				if name == "" then
+					name = "(unnamed)"
+				end
 
 				if self.is_active then
 					name = "[ " .. name .. " ]"
@@ -202,6 +223,13 @@ return {
 				end
 
 				return name
+			end,
+			hl = function(self)
+				if self.is_active then
+					return { fg = "dragonBlack0", bg = "oldWhite" }
+				end
+
+				return { fg = "oldWhite" }
 			end,
 		}
 
@@ -284,37 +312,63 @@ return {
 			end,
 		})
 
-		local statusline = {
-			smallmode_statusline,
-			pad(1),
-			cwd,
-			pad(1),
-			fileblock,
+		local mini_statusline = {
+			condition = function()
+				return conditions.buffer_matches({ buftype = { "nofile" } })
+			end,
+			{
+				smallmode_statusline,
+				pad(1),
+				modeforegroundmeta(function()
+					return "NOF"
+				end, "status"),
+				pad(1),
+				{
+					provider = function()
+						local name = vim.api.nvim_buf_get_name(0)
+						name = vim.fn.fnamemodify(name, ":.")
+						return "[ " .. name .. " ]"
+					end,
+					hl = { fg = "dragonGreen" },
+				},
 
-			fill,
+				fill,
 
-			lspinfo,
-			pad(1),
-			rulers,
-			pad(1),
-			smallmode_statusline,
+				smallmode_statusline,
+			},
 		}
 
-    local mini_statusline = {
-      condition = function()
-        return conditions.
-      end,
+		local full_statusline = {
+			condition = function()
+				return not conditions.buffer_matches({ buftype = { "nofile" } })
+			end,
+			{
+				smallmode_statusline,
+				pad(1),
+				mode2,
+				pad(1),
+				cwd,
+				pad(1),
+				fileblock,
 
-    }
+				fill,
+
+				lspinfo,
+				pad(1),
+				rulers,
+				pad(1),
+				smallmode_statusline,
+			},
+		}
+
+		local statusline = {
+			full_statusline,
+			mini_statusline,
+		}
 
 		local tabline = {
-			mode,
-			pad(3),
 			tabs,
-
 			fill,
-
-			smallmode_tabline,
 		}
 
 		vim.o.showtabline = 2

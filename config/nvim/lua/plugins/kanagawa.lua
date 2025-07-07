@@ -8,8 +8,9 @@ return {
 			return {
 				BlinkCmpMenu = { bg = colors.palette.dragonBlack3 },
 				BlinkCmpLabelDetail = { bg = colors.palette.dragonBlack3 },
-				BlinkCmpMenuSelection = { bg = colors.palette.waveBlue1 },
+				BlinkCmpMenuSelection = { bg = colors.palette.dragonBlue, fg = colors.palette.dragonBlack3 },
 			}
 		end
+		opts.colors = { theme = { all = { ui = { bg_gutter = "none" } } } }
 	end,
 }
