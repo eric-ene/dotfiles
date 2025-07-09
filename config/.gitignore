@@ -1,10 +1,10 @@
 *
-!ghostty
-!helix
-!neofetch
-!fastfetch
+!ghostty/**
+!helix/**
+!neofetch/**
+!fastfetch/**
 !nvim
 !nvim/**
 !spotify-player
 nvim/lazy-lock.json
-!fish
+!fish/**
