@@ -10,5 +10,8 @@ map.set(mode, "<C-k>", "<C-w>k")
 
 map.set(mode, "<Leader>c", "<Plug>(comment_toggle_linewise_current)")
 
+map.set(mode, "<Leader>f", "<cmd>Telescope find_files<cr>")
+map.set(mode, "<Leader>g", "<cmd>Telescope live_grep<cr>")
+
 mode = { "v" }
 map.set(mode, "<Leader>c", "<Plug>(comment_toggle_linewise_visual)")

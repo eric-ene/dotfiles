@@ -2,12 +2,12 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "auto",
-    "source": "~/Pictures/hachi.png",
+    "source": "~/dotfiles/other/hachi_sweetie16.ansi",
     "width": 24,
     "padding": {
         "left": 1,
         "right": 2
-    },
+    }
   },
   "display": {
     "separator": " ",
@@ -24,44 +24,81 @@
     },
     {
       "type": "os",
-      "key": "├─os"
+      "key": "├──os",
+      "format": "{2} {/6}{10}{/}{?6}{6}{?}"
     },
     {
       "type": "packages",
-      "key": "├pkg"
+      "key": "├pkgs",
+      "format": "{1}"
+    },
+    {
+      "type": "terminal",
+      "key": "├term",
+      "format": "{1}"
+    },
+    {
+      "type": "shell",
+      "key": "├─shl",
+      "format": "{1}"
+    },
+    {
+      "type": "terminaltheme",
+      "key": "├cols",
+      "format": "Kanagawa Dragon"
     },
     {
       "type": "de",
-      "key": "├─de"
+      "key": "├──de"
     },
     {
       "type": "uptime",
-      "key": "└─up"
+      "key": "└──up",
+      "format": "{?1}{1}{?}d {?2}{2}{?}h {?3}{3}{?}m"
     },
     {
       "type": "title",
       "format": "hw"
     },
     {
-      "type": "board",
-      "key": "├sys",
+      "type": "localip",
+      "key": "├─net",
       "format": "{1}"
+    },
+    {
+      "type": "board",
+      "key": "├─sys",
+      "format": "{2} {1}"
+    },
+    {
+      "type": "display",
+      "key": "├disp",
+      "format": "{1}x{2} @ {3}Hz"
     },
     {
       "type": "cpu",
-      "key": "├cpu",
+      "key": "├─cpu",
       "format": "{1}"
     },
     {
+      "type": "gpu",
+      "key": "├─gpu",
+      "format": "{2}"
+    },
+    {
       "type": "memory",
-      "key": "├mem",
-      "format": "{1},{2},{3},{4},{5}"
+      "key": "├─mem",
+      "format": "{2}"
     },
     {
       "type": "disk",
-      "key": "└dsk",
-      "folders": "/"
+      "key": "└disk",
+      "folders": "/",
+      "format": "{1} / {2} ({3})"
     },
-    "colors"
+    {
+      "type": "colors",
+      "symbol": "circle"
+    }
   ]
 }
