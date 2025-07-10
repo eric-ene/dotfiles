@@ -12,6 +12,7 @@ map.set(mode, "<Leader>c", "<Plug>(comment_toggle_linewise_current)")
 
 map.set(mode, "<Leader>f", "<cmd>Telescope find_files<cr>")
 map.set(mode, "<Leader>g", "<cmd>Telescope live_grep<cr>")
+map.set(mode, "<Leader>d", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
 
 mode = { "v" }
 map.set(mode, "<Leader>c", "<Plug>(comment_toggle_linewise_visual)")

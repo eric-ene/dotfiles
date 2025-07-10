@@ -217,9 +217,9 @@ return {
 				end
 
 				if self.is_active then
-					name = "[ " .. name .. " ]"
+					name = " " .. name .. " "
 				else
-					name = "  " .. name .. "  "
+					name = " " .. name .. " "
 				end
 
 				return name

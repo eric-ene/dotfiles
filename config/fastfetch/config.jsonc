@@ -73,7 +73,7 @@
     {
       "type": "display",
       "key": "├disp",
-      "format": "{1}x{2} @ {3}Hz"
+      "compacttype": "original-with-refresh-rate"
     },
     {
       "type": "cpu",
