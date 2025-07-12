@@ -1,18 +1,23 @@
 return {
-  "stevearc/conform.nvim",
-  opts = function(_, opts)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*",
-      callback = function(args)
-        require("conform").format({bufnr = args.buf})
-      end,
-    })  
+	"stevearc/conform.nvim",
+	opts = function(_, opts)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*",
+			callback = function(args)
+				require("conform").format({ bufnr = args.buf })
+			end,
+		})
 
-    local formatters = {
-      lua = { "stylua" },
-      rust = { "rustfmt", lsp_format = "fallback" }
-    }
+		local formatters = {
+			lua = { "stylua" },
+			rust = { "rustfmt", lsp_format = "fallback" },
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
+			html = { "html_beautify" },
+		}
 
-    opts.formatters_by_ft = formatters
-  end
+		opts.formatters_by_ft = formatters
+	end,
 }

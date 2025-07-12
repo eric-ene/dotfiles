@@ -2,6 +2,9 @@ local map = vim.keymap
 
 local mode = { "n" }
 
+map.set(mode, "<Leader>[", "<cmd>bNext<cr>")
+map.set(mode, "<Leader>]", "<cmd>bnext<cr>")
+
 map.set(mode, "<Leader>t", "<cmd>Neotree toggle<cr>")
 map.set(mode, "<C-h>", "<C-w>h")
 map.set(mode, "<C-l>", "<C-w>l")
