@@ -11,6 +11,8 @@ vim_opts.relativenumber = true
 
 vim_opts.laststatus = 3
 
+vim_opts.clipboard = "unnamed"
+
 vim.cmd("colorscheme kanagawa-dragon")
 
 require("config.bindings")

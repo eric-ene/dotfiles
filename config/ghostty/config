@@ -44,8 +44,10 @@
 font-family = ""
 font-family = "IosevkaTerm Nerd Font"
 font-size = 10.5
+font-feature = -calt, -liga, -dlig
 theme = Kanagawa Dragon
 window-subtitle = working-directory
+title = " "
 
 window-padding-x = 4
 window-padding-y = 4

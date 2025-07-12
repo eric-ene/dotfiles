@@ -277,6 +277,45 @@ return {
 			hl = { fg = "dragonGreen" },
 		}
 
+		local cwd_clipped = {
+			provider = function()
+				local header_sep = " |>"
+
+				local cwd_raw = vim.fn.getcwd()
+				local cwd = vim.fn.fnamemodify(cwd_raw, ":~")
+
+				if cwd == "~" then
+					local final = "[" .. vim.fn.fnamemodify(cwd_raw, ":t") .. "] " .. cwd
+					return (" "):rep(18 - #final) .. final .. header_sep
+				end
+
+				local head = vim.fn.fnamemodify(cwd, ":h:t") .. "/"
+				local tail = vim.fn.fnamemodify(cwd, ":t")
+				local last2 = head .. tail
+
+				local chosen = last2
+
+				-- 18 is a stupid hardcoded value because my user@host is same len on pc and laptop
+				-- 10 is based on vibes
+				if #chosen > 18 then
+					if #tail < 10 then
+						chosen = "..." .. string.sub(chosen, 3)
+					elseif #tail < 18 then
+						chosen = tail
+					end
+				end
+
+				if #chosen > 18 then
+					chosen = "..." .. string.sub(chosen, 3)
+				else
+					chosen = string.rep(" ", 18 - #chosen) .. chosen
+				end
+
+				return chosen .. header_sep
+			end,
+			hl = { fg = "oldWhite" },
+		}
+
 		-- local bigmode = {
 		-- 	provider = function(self)
 		-- 		local modetext = modes[self.mode:sub(1, 1)]
@@ -367,6 +406,8 @@ return {
 		}
 
 		local tabline = {
+			cwd_clipped,
+			pad(1),
 			tabs,
 			fill,
 		}

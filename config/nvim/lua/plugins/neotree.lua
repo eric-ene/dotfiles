@@ -14,5 +14,6 @@ return {
 		window = {
 			width = 30,
 		},
+		async_directory_scan = "always",
 	},
 }
