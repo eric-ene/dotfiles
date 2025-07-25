@@ -2,6 +2,9 @@ local map = vim.keymap
 
 local mode = { "n" }
 
+map.set(mode, "<Leader>q", "<cmd>Bufclose<cr>")
+map.set(mode, "q:", "<nop>")
+
 map.set(mode, "<Leader>[", "<cmd>bNext<cr>")
 map.set(mode, "<Leader>]", "<cmd>bnext<cr>")
 
@@ -18,4 +21,5 @@ map.set(mode, "<Leader>g", "<cmd>Telescope live_grep<cr>")
 map.set(mode, "<Leader>d", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
 
 mode = { "v" }
+
 map.set(mode, "<Leader>c", "<Plug>(comment_toggle_linewise_visual)")

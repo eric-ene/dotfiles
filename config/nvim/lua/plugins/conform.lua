@@ -8,6 +8,13 @@ return {
 			end,
 		})
 
+		opts.formatters = {
+			csharpier = {
+				command = "csharpier",
+				args = { "format" },
+			},
+		}
+
 		local formatters = {
 			lua = { "stylua" },
 			rust = { "rustfmt", lsp_format = "fallback" },
@@ -16,6 +23,7 @@ return {
 			javascriptreact = { "prettier" },
 			typescriptreact = { "prettier" },
 			html = { "html_beautify" },
+			cs = { "csharpier" },
 		}
 
 		opts.formatters_by_ft = formatters

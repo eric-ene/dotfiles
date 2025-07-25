@@ -148,7 +148,7 @@ return {
 				condition = function()
 					return not vim.bo.modifiable or vim.bo.readonly
 				end,
-				provider = "[x]",
+				provider = "[-]",
 				hl = { fg = "dragonRed" },
 			},
 		}
@@ -220,6 +220,11 @@ return {
 					name = " " .. name .. " "
 				else
 					name = " " .. name .. " "
+				end
+
+				local modified = vim.bo[self.bufnr].modified
+				if modified then
+					return name .. "[+] "
 				end
 
 				return name

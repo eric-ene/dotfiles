@@ -15,8 +15,6 @@ vim_opts.clipboard = "unnamed"
 
 vim.cmd("colorscheme kanagawa-dragon")
 
-require("nvim-treesitter.configs").setup({
-	highlight = { enable = true },
-})
-
+require("config.commands")
 require("config.bindings")
+require("config.godot")

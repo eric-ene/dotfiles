@@ -7,7 +7,29 @@ return {
 
 		local lspconfig = require("lspconfig")
 
-		lspconfig.rust_analyzer.setup({})
+		lspconfig.rust_analyzer.setup({
+			settings = {
+				["rust-analyzer"] = {
+					["cargo"] = {
+						["features"] = "all",
+					},
+				},
+			},
+		})
+
+		lspconfig.omnisharp.setup({
+			cmd = {
+				"OmniSharp",
+				"-z",
+				"--hostPID",
+				vim.fn.getpid(),
+				"DotNet:enablePackageRestore=false",
+				"--encoding",
+				"utf-8",
+				"--languageserver",
+			},
+		})
+
 		lspconfig.ts_ls.setup({})
 		lspconfig.html.setup({})
 
