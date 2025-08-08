@@ -9,7 +9,11 @@ function git_info --description 'get git inof'
         return
     end
 
-    set -l branch $(git symbolic-ref --short HEAD)
+    set -l branch $(git symbolic-ref --short HEAD -q)
+
+    if not string length -q $branch
+      set branch $(git rev-parse --short HEAD)
+    end
     
     set -l dirty $(git status --porcelain | wc -l)
 
