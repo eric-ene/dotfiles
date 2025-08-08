@@ -4,6 +4,7 @@ local modes = {
 	v = "VISUAL",
 	c = "COMMAND",
 	r = "REPLACE",
+	s = "SUBSTITUTE",
 }
 local colors = {
 	n = "oldWhite",
@@ -11,6 +12,7 @@ local colors = {
 	v = "dragonViolet",
 	c = "dragonRed",
 	r = "dragonRed",
+	s = "dragonAqua",
 }
 
 local pad = function(num)
@@ -114,11 +116,11 @@ return {
 		-- })
 
 		local mode = modebackgroundmeta(function(self)
-			return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) .. " "
+			return " " .. modes[self.mode:sub(1, 1)]:sub(1, 3) or "OTHER" .. " "
 		end, "tabline")
 
 		local mode2 = modeforegroundmeta(function(self)
-			return modes[self.mode:sub(1, 1)]:sub(1, 3)
+			return (modes[self.mode:sub(1, 1)] or self.mode):sub(1, 3)
 		end, "status")
 
 		local filenameinfo = {
@@ -311,7 +313,7 @@ return {
 				end
 
 				if #chosen > 18 then
-					chosen = "..." .. string.sub(chosen, 3)
+					chosen = "..." .. string.sub(chosen, #chosen + 1 - 18 + 3)
 				else
 					chosen = string.rep(" ", 18 - #chosen) .. chosen
 				end
