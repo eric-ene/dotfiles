@@ -7,7 +7,8 @@ return {
 
 		local lspconfig = require("lspconfig")
 
-    lspconfig.clangd.setup({})
+		lspconfig.clangd.setup({})
+		lspconfig.qmlls.setup({})
 
 		lspconfig.rust_analyzer.setup({
 			settings = {
