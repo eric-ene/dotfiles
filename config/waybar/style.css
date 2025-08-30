@@ -1,0 +1,48 @@
+* {
+  background-color: #181617;
+  font-family: "IosevkaTerm NFM";
+  font-size: 15px;
+  color: #f3eeb7;
+}
+
+label.module {
+  padding: 0 5px;
+}
+
+.module {
+  padding: 0 15px;
+}
+
+button:hover {
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#workspaces {
+  padding-left: 0px;
+}
+
+#workspaces button {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  border-radius: 0px;
+  font-style: normal;
+}
+
+#workspaces button:hover {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#workspaces button.active label {
+  background: #C4746E;
+  color: #181617;
+  border: none;
+  box-shadow: none;
+}
+
+#tray {
+  padding-right: 10px;
+}
