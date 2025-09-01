@@ -47,7 +47,7 @@ font-size = 11
 font-feature = -calt, -liga, -dlig
 theme = Kanagawa Dragon
 window-subtitle = working-directory
-title = ""
+title = "Ghostty"
 shell-integration = none
 
 window-padding-x = 4

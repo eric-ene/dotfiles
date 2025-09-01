@@ -1,4 +1,6 @@
 * {
+  all: initial;
+
   background-color: #181617;
   font-family: "IosevkaTerm NFM";
   font-size: 15px;
@@ -43,6 +45,31 @@ button:hover {
   box-shadow: none;
 }
 
+#window label {
+}
+
 #tray {
   padding-right: 10px;
 }
+
+#pulseaudio {
+  padding: 0px;
+}
+
+#pulseaudio-slider {
+  padding-right: 10px;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+#pulseaudio-slider trough {
+  min-height: 4px;
+  min-width: 80px;
+}
+
+#pulseaudio-slider highlight {
+  min-width: 4px;
+  background-color: #f3eeb7;
+}
+
+

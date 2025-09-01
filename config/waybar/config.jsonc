@@ -9,19 +9,29 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/window",
+        "custom/window",
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
+        "tray",
         "idle_inhibitor",
         "network",
         "cpu",
         "memory",
         "temperature",
-        "tray",
+        "pulseaudio",
+        "pulseaudio/slider",
     ],
+    "pulseaudio/slider": {
+      "min": 0,
+      "max": 100,
+      "orientation": "horizontal",
+    },
+    "custom/window": {
+      "exec": "~/dotfiles/scripts/window_title.sh",
+    },
     "hyprland/workspaces": {
       "format": " {name} [{windows} ] ",
       "format-icons": {
@@ -150,9 +160,9 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format": "{icon}",
+        "format-bluetooth": "{icon}",
+        "format-bluetooth-muted": "{icon}",
         "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
