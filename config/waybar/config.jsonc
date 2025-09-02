@@ -1,23 +1,26 @@
 // -*- mode: jsonc -*-
 {
     "output": "DP-1",
+    "margin": "8 0",
     // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
+    "position": "left", // Waybar position (top|bottom|left|right)
+    // "height": 30, // Waybar height (to be removed for auto height)
+    "width": 32, // Waybar width
     "spacing": 16, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
+        "clock",
+        // "hyprland/workspaces",
         "custom/window",
     ],
     "modules-center": [
-        "clock"
+        // "clock"
+        "hyprland/workspaces",
     ],
     "modules-right": [
         "tray",
-        "idle_inhibitor",
-        "network",
+        // "idle_inhibitor",
+        // "network",
         "cpu",
         "memory",
         "temperature",
@@ -27,24 +30,22 @@
     "pulseaudio/slider": {
       "min": 0,
       "max": 100,
-      "orientation": "horizontal",
+      "orientation": "vertical",
     },
     "custom/window": {
+      "rotate": 270,
       "exec": "~/dotfiles/scripts/window_title.sh",
     },
     "hyprland/workspaces": {
-      "format": " {name} [{windows} ] ",
-      "format-icons": {
-        "active": "O",
-        "default": "o",
-        "empty": "o",
-      },
+      // "format": " {name} [{windows} ] ",
+      "format": "{name}{windows}",
+      "format-window-separator": "",
       "window-rewrite": {
-        "class<.*firefox.*>": " 󰈹",
-        "class<.*ghostty.*>": " ",
-        "class<.*steam.*>": " ",
+        "class<.*firefox.*>": "\n󰈹",
+        "class<.*ghostty.*>": "\n",
+        "class<.*steam.*>": "\n",
       },
-      "window-rewrite-default": " ",
+      "window-rewrite-default": "\n",
       "all-outputs": false
     },
     "keyboard-state": {
@@ -100,7 +101,7 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 12,
         "spacing": 10,
         // "icons": {
         //   "blueman": "bluetooth",
@@ -109,13 +110,16 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-        "format": "{:%a %b %d, %H:%M}",
+        // "format": "{:%a %b %d, %H:%M}",
+        "format": "{:%H\n%M}",
     },
     "cpu": {
+        "rotate": 270,
         "format": " {usage}%",
         "tooltip": false
     },
     "memory": {
+        "rotate": 270,
         "format": " {used} GiB"
     },
     "temperature": {

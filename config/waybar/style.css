@@ -20,8 +20,17 @@ button:hover {
   text-shadow: none;
 }
 
+#tray {
+  margin-left: 10px;
+}
+
 #workspaces {
   padding-left: 0px;
+  margin-left: 0px;
+}
+
+#workspaces button.empty {
+  background: red;
 }
 
 #workspaces button {
@@ -36,6 +45,10 @@ button:hover {
   background: transparent;
   border: none;
   box-shadow: none;
+}
+
+#workspaces button label {
+  padding: 8px;
 }
 
 #workspaces button.active label {
@@ -54,21 +67,21 @@ button:hover {
 
 #pulseaudio {
   padding: 0px;
+  padding-left: 2px;
 }
 
 #pulseaudio-slider {
-  padding-right: 10px;
   padding-left: 0px;
   margin-left: 0px;
 }
 
 #pulseaudio-slider trough {
-  min-height: 4px;
-  min-width: 80px;
+  min-height: 80px;
+  min-width: 4px;
 }
 
 #pulseaudio-slider highlight {
-  min-width: 4px;
+  min-height: 4px;
   background-color: #f3eeb7;
 }
 
