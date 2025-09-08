@@ -1,7 +1,7 @@
 // -*- mode: jsonc -*-
 {
     "output": "DP-1",
-    "margin": "8 0",
+    "margin": "16 0 16 8",
     // "layer": "top", // Waybar at top layer
     "position": "left", // Waybar position (top|bottom|left|right)
     // "height": 30, // Waybar height (to be removed for auto height)
@@ -9,13 +9,13 @@
     "spacing": 16, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "clock",
-        // "hyprland/workspaces",
+        // "clock",
+        "hyprland/workspaces",
         "custom/window",
     ],
     "modules-center": [
-        // "clock"
-        "hyprland/workspaces",
+        "clock"
+        // "hyprland/workspaces",
     ],
     "modules-right": [
         "tray",

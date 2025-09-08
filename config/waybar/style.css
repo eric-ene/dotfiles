@@ -51,7 +51,7 @@ button:hover {
   padding: 8px;
 }
 
-#workspaces button.active label {
+#workspaces button.visible label {
   background: #C4746E;
   color: #181617;
   border: none;
